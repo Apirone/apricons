@@ -5,9 +5,6 @@
   "author": "Apirone",
   "license": "MIT",
   "keywords": ["Icon"],
-  "scripts": {
-    "generate": "node index.js"
-  },
   "dependencies": {
     "@momentum-ui/webfonts-generator": "^2.3.2"
   },

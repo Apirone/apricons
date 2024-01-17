@@ -2,18 +2,24 @@
 
 ---
 
-To install dependence:
+[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://raw.githubusercontent.com/Apirone/apricons/main/LICENSE)
+
+This library contains Apirone branded icons.
+
+---
+
+### To install dependence:
 
 ```bash
 npm install apricons
 ```
 
-Import
+### Import
 ```
 import('apricons/dist/apricons.css')
 ```
 
-Example:
+### Example:
 
 ```html
 <i class="apr apr-box"></i>
