@@ -1,4 +1,4 @@
-![ApironeIcons Logo](logo.svg "ApironeLogo")
+![ApironeIcons Logo](https://apirone.com/img/logos/logo-primary.svg "ApironeLogo")
 
 ---
 
