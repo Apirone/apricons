@@ -363,6 +363,10 @@
     content: "\f155";
  }
 
-.apr-arrow_double_light_down:before {
+.apr-brand:before {
     content: "\f156";
+ }
+
+.apr-arrow_double_light_down:before {
+    content: "\f157";
  }
