@@ -367,6 +367,14 @@
     content: "\f156";
  }
 
-.apr-arrow_double_light_down:before {
+.apr-play:before {
     content: "\f157";
+ }
+
+.apr-stop:before {
+    content: "\f158";
+ }
+
+.apr-arrow_double_light_down:before {
+    content: "\f159";
  }
