@@ -378,3 +378,7 @@
 .apr-arrow_double_light_down:before {
     content: "\f159";
  }
+
+.apr-sign-in:before {
+    content: "\f15a";
+ }
