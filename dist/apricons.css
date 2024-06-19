@@ -382,3 +382,15 @@
 .apr-sign-in:before {
     content: "\f15a";
  }
+
+.apr-recurring_payments:before {
+    content: "\f15b";
+ }
+
+.apr-instant_forwarding:before {
+    content: "\f15c";
+ }
+
+.apr-threshold_amount:before {
+    content: "\f15d";
+ }
