@@ -394,3 +394,7 @@
 .apr-threshold_amount:before {
     content: "\f15d";
  }
+
+.apr-cancel_small_thin:before {
+    content: "\f15e";
+ }
