@@ -1,24 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="apricons.css">
-    <style>
-        div {
-            max-width: 600px;
-            width: 100%;
-            margin: auto;
-        }
-        
-        span {
-            display: inline-block; padding: 6px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>apricons demo</title>
+  <link rel="stylesheet" href="apricons.css">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu; }
+    .wrap { max-width: 900px; margin: 40px auto; padding: 0 16px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .grid span { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border: 1px solid #eee; border-radius: 6px; }
+    .demo { margin: 24px 0 8px; font-weight: 600; }
+    .big { font-size: 48px; display: flex; gap: 16px; align-items: center; }
+    .box { display:inline-flex; width:64px; height:64px; align-items:center; justify-content:center; border:1px dashed #ddd; border-radius:8px; }
+  </style>
 </head>
-  <body>
-    <div>
-      <span><i class="apr apr-arrow_circle_down"></i></span><span><i class="apr apr-arrow_double_light_left"></i></span><span><i class="apr apr-box_close"></i></span><span><i class="apr apr-plus-classic"></i></span><span><i class="apr apr-warning-fill"></i></span><span><i class="apr apr-arrow_double_light_right"></i></span><span><i class="apr apr-arrow_double_light_up"></i></span><span><i class="apr apr-arrow_down"></i></span><span><i class="apr apr-arrow_left"></i></span><span><i class="apr apr-arrow_light_down"></i></span><span><i class="apr apr-arrow_light_left"></i></span><span><i class="apr apr-arrow_light_right"></i></span><span><i class="apr apr-arrow_light_up"></i></span><span><i class="apr apr-arrow_right"></i></span><span><i class="apr apr-arrow_circle_left"></i></span><span><i class="apr apr-arrow_up"></i></span><span><i class="apr apr-backspace"></i></span><span><i class="apr apr-box"></i></span><span><i class="apr apr-broadcast"></i></span><span><i class="apr apr-btc"></i></span><span><i class="apr apr-ltc"></i></span><span><i class="apr apr-doge"></i></span><span><i class="apr apr-trx"></i></span><span><i class="apr apr-usdt"></i></span><span><i class="apr apr-calendar"></i></span><span><i class="apr apr-arrow_circle_light_down"></i></span><span><i class="apr apr-cancel_circle"></i></span><span><i class="apr apr-cancel_small"></i></span><span><i class="apr apr-checkbox_circle"></i></span><span><i class="apr apr-checkbox_small"></i></span><span><i class="apr apr-code"></i></span><span><i class="apr apr-code_box"></i></span><span><i class="apr apr-connect"></i></span><span><i class="apr apr-copy"></i></span><span><i class="apr apr-copy_success"></i></span><span><i class="apr apr-dashboard"></i></span><span><i class="apr apr-arrow_circle_light_left"></i></span><span><i class="apr apr-destinations"></i></span><span><i class="apr apr-envelope"></i></span><span><i class="apr apr-exit"></i></span><span><i class="apr apr-eye"></i></span><span><i class="apr apr-eye_close"></i></span><span><i class="apr apr-facebook"></i></span><span><i class="apr apr-reddit"></i></span><span><i class="apr apr-twitter"></i></span><span><i class="apr apr-medium"></i></span><span><i class="apr apr-forwarding"></i></span><span><i class="apr apr-arrow_circle_light_right"></i></span><span><i class="apr apr-gear"></i></span><span><i class="apr apr-globe"></i></span><span><i class="apr apr-heart"></i></span><span><i class="apr apr-history"></i></span><span><i class="apr apr-home"></i></span><span><i class="apr apr-incognito"></i></span><span><i class="apr apr-infinity"></i></span><span><i class="apr apr-info"></i></span><span><i class="apr apr-info-note"></i></span><span><i class="apr apr-link"></i></span><span><i class="apr apr-arrow_circle_light_up"></i></span><span><i class="apr apr-list"></i></span><span><i class="apr apr-lock_close"></i></span><span><i class="apr apr-lock_open"></i></span><span><i class="apr apr-filter_close"></i></span><span><i class="apr apr-percentage"></i></span><span><i class="apr apr-plus"></i></span><span><i class="apr apr-rare_transfers"></i></span><span><i class="apr apr-refresh"></i></span><span><i class="apr apr-regular_payments"></i></span><span><i class="apr apr-renew"></i></span><span><i class="apr apr-arrow_circle_right"></i></span><span><i class="apr apr-save"></i></span><span><i class="apr apr-search"></i></span><span><i class="apr apr-sending_transaction"></i></span><span><i class="apr apr-shield-solid"></i></span><span><i class="apr apr-shuffle"></i></span><span><i class="apr apr-sort"></i></span><span><i class="apr apr-spinner"></i></span><span><i class="apr apr-statistics"></i></span><span><i class="apr apr-stopwatch"></i></span><span><i class="apr apr-tag"></i></span><span><i class="apr apr-arrow_circle_up"></i></span><span><i class="apr apr-tick"></i></span><span><i class="apr apr-trash"></i></span><span><i class="apr apr-unconfirm"></i></span><span><i class="apr apr-user"></i></span><span><i class="apr apr-wallet"></i></span><span><i class="apr apr-warn-note"></i></span><span><i class="apr apr-warning"></i></span><span><i class="apr apr-brand"></i></span><span><i class="apr apr-play"></i></span><span><i class="apr apr-stop"></i></span><span><i class="apr apr-arrow_double_light_down"></i></span><span><i class="apr apr-sign-in"></i></span><span><i class="apr apr-recurring_payments"></i></span><span><i class="apr apr-instant_forwarding"></i></span><span><i class="apr apr-threshold_amount"></i></span><span><i class="apr apr-cancel_small_thin"></i></span><span><i class="apr apr-home"></i></span><span><i class="apr apr-lock"></i></span><span><i class="apr apr-forward"></i></span><span><i class="apr apr-arrow-long-right"></i></span><span><i class="apr apr-tags"></i></span><span><i class="apr apr-settings-stroke"></i></span>
+<body>
+  <div class="wrap">
+    <div class="demo">All icons</div>
+    <div class="grid">
+      <span title="1$arrow_circle_down"><i class="apr apr-arrow_circle_down"></i></span>
+<span title="10$arrow_double_light_left"><i class="apr apr-arrow_double_light_left"></i></span>
+<span title="100$box_close"><i class="apr apr-box_close"></i></span>
+<span title="101$plus-classic"><i class="apr apr-plus-classic"></i></span>
+<span title="102$warning-fill"><i class="apr apr-warning-fill"></i></span>
+<span title="103$callback"><i class="apr apr-callback"></i></span>
+<span title="11$arrow_double_light_right"><i class="apr apr-arrow_double_light_right"></i></span>
+<span title="12$arrow_double_light_up"><i class="apr apr-arrow_double_light_up"></i></span>
+<span title="13$arrow_down"><i class="apr apr-arrow_down"></i></span>
+<span title="14$arrow_left"><i class="apr apr-arrow_left"></i></span>
+<span title="15$arrow_light_down"><i class="apr apr-arrow_light_down"></i></span>
+<span title="16$arrow_light_left"><i class="apr apr-arrow_light_left"></i></span>
+<span title="17$arrow_light_right"><i class="apr apr-arrow_light_right"></i></span>
+<span title="18$arrow_light_up"><i class="apr apr-arrow_light_up"></i></span>
+<span title="19$arrow_right"><i class="apr apr-arrow_right"></i></span>
+<span title="2$arrow_circle_left"><i class="apr apr-arrow_circle_left"></i></span>
+<span title="20$arrow_up"><i class="apr apr-arrow_up"></i></span>
+<span title="21$backspace"><i class="apr apr-backspace"></i></span>
+<span title="22$box"><i class="apr apr-box"></i></span>
+<span title="23$broadcast"><i class="apr apr-broadcast"></i></span>
+<span title="24$btc"><i class="apr apr-btc"></i></span>
+<span title="25$ltc"><i class="apr apr-ltc"></i></span>
+<span title="26$doge"><i class="apr apr-doge"></i></span>
+<span title="27$trx"><i class="apr apr-trx"></i></span>
+<span title="28$usdt"><i class="apr apr-usdt"></i></span>
+<span title="29$calendar"><i class="apr apr-calendar"></i></span>
+<span title="3$arrow_circle_light_down"><i class="apr apr-arrow_circle_light_down"></i></span>
+<span title="30$cancel_circle"><i class="apr apr-cancel_circle"></i></span>
+<span title="31$cancel_small"><i class="apr apr-cancel_small"></i></span>
+<span title="32$checkbox_circle"><i class="apr apr-checkbox_circle"></i></span>
+<span title="33$checkbox_small"><i class="apr apr-checkbox_small"></i></span>
+<span title="34$code"><i class="apr apr-code"></i></span>
+<span title="35$code_box"><i class="apr apr-code_box"></i></span>
+<span title="36$connect"><i class="apr apr-connect"></i></span>
+<span title="37$copy"><i class="apr apr-copy"></i></span>
+<span title="38$copy_success"><i class="apr apr-copy_success"></i></span>
+<span title="39$dashboard"><i class="apr apr-dashboard"></i></span>
+<span title="4$arrow_circle_light_left"><i class="apr apr-arrow_circle_light_left"></i></span>
+<span title="40$destinations"><i class="apr apr-destinations"></i></span>
+<span title="41$envelope"><i class="apr apr-envelope"></i></span>
+<span title="42$exit"><i class="apr apr-exit"></i></span>
+<span title="43$eye"><i class="apr apr-eye"></i></span>
+<span title="44$eye_close"><i class="apr apr-eye_close"></i></span>
+<span title="45$facebook"><i class="apr apr-facebook"></i></span>
+<span title="46$reddit"><i class="apr apr-reddit"></i></span>
+<span title="47$twitter"><i class="apr apr-twitter"></i></span>
+<span title="48$medium"><i class="apr apr-medium"></i></span>
+<span title="49$forwarding"><i class="apr apr-forwarding"></i></span>
+<span title="5$arrow_circle_light_right"><i class="apr apr-arrow_circle_light_right"></i></span>
+<span title="50$gear"><i class="apr apr-gear"></i></span>
+<span title="51$globe"><i class="apr apr-globe"></i></span>
+<span title="52$heart"><i class="apr apr-heart"></i></span>
+<span title="53$history"><i class="apr apr-history"></i></span>
+<span title="54$home"><i class="apr apr-home"></i></span>
+<span title="55$incognito"><i class="apr apr-incognito"></i></span>
+<span title="56$infinity"><i class="apr apr-infinity"></i></span>
+<span title="57$info"><i class="apr apr-info"></i></span>
+<span title="58$info-note"><i class="apr apr-info-note"></i></span>
+<span title="59$link"><i class="apr apr-link"></i></span>
+<span title="6$arrow_circle_light_up"><i class="apr apr-arrow_circle_light_up"></i></span>
+<span title="60$list"><i class="apr apr-list"></i></span>
+<span title="61$lock_close"><i class="apr apr-lock_close"></i></span>
+<span title="62$lock_open"><i class="apr apr-lock_open"></i></span>
+<span title="63$filter_close"><i class="apr apr-filter_close"></i></span>
+<span title="64$percentage"><i class="apr apr-percentage"></i></span>
+<span title="65$plus"><i class="apr apr-plus"></i></span>
+<span title="66$rare_transfers"><i class="apr apr-rare_transfers"></i></span>
+<span title="67$refresh"><i class="apr apr-refresh"></i></span>
+<span title="68$regular_payments"><i class="apr apr-regular_payments"></i></span>
+<span title="69$renew"><i class="apr apr-renew"></i></span>
+<span title="7$arrow_circle_right"><i class="apr apr-arrow_circle_right"></i></span>
+<span title="70$save"><i class="apr apr-save"></i></span>
+<span title="71$search"><i class="apr apr-search"></i></span>
+<span title="72$sending_transaction"><i class="apr apr-sending_transaction"></i></span>
+<span title="73$shield-solid"><i class="apr apr-shield-solid"></i></span>
+<span title="74$shuffle"><i class="apr apr-shuffle"></i></span>
+<span title="75$sort"><i class="apr apr-sort"></i></span>
+<span title="76$spinner"><i class="apr apr-spinner"></i></span>
+<span title="77$statistics"><i class="apr apr-statistics"></i></span>
+<span title="78$stopwatch"><i class="apr apr-stopwatch"></i></span>
+<span title="79$tag"><i class="apr apr-tag"></i></span>
+<span title="8$arrow_circle_up"><i class="apr apr-arrow_circle_up"></i></span>
+<span title="80$tick"><i class="apr apr-tick"></i></span>
+<span title="81$trash"><i class="apr apr-trash"></i></span>
+<span title="82$unconfirm"><i class="apr apr-unconfirm"></i></span>
+<span title="83$user"><i class="apr apr-user"></i></span>
+<span title="84$wallet"><i class="apr apr-wallet"></i></span>
+<span title="85$warn-note"><i class="apr apr-warn-note"></i></span>
+<span title="86$warning"><i class="apr apr-warning"></i></span>
+<span title="87$brand"><i class="apr apr-brand"></i></span>
+<span title="88$play"><i class="apr apr-play"></i></span>
+<span title="89$stop"><i class="apr apr-stop"></i></span>
+<span title="9$arrow_double_light_down"><i class="apr apr-arrow_double_light_down"></i></span>
+<span title="90$sign-in"><i class="apr apr-sign-in"></i></span>
+<span title="91$recurring_payments"><i class="apr apr-recurring_payments"></i></span>
+<span title="92$instant_forwarding"><i class="apr apr-instant_forwarding"></i></span>
+<span title="93$threshold_amount"><i class="apr apr-threshold_amount"></i></span>
+<span title="94$cancel_small_thin"><i class="apr apr-cancel_small_thin"></i></span>
+<span title="95$home"><i class="apr apr-home"></i></span>
+<span title="96$lock"><i class="apr apr-lock"></i></span>
+<span title="97$forward"><i class="apr apr-forward"></i></span>
+<span title="98$arrow-long-right"><i class="apr apr-arrow-long-right"></i></span>
+<span title="98$tags"><i class="apr apr-tags"></i></span>
+<span title="99$settings-stroke"><i class="apr apr-settings-stroke"></i></span>
+
     </div>
-  </body>
+
+    <div class="demo">Animations</div>
+    <div class="big">
+      <div class="box"><i class="apr apr-spinner spin"></i></div>
+    </div>
+  </div>
+</body>
 </html>

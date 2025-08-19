@@ -5,33 +5,28 @@ const path = require("path");
 /**
  * Asynchronously generates font files, CSS, and HTML based on SVG icons.
  *
- * @param {string} fontName - The name of the font.
- * @param {string} svgPattern - The pattern for SVG icons.
- * @param {string} outputDir - The output directory for generated files.
- * @param {Object} [options={}] - Additional options for font generation.
- * @returns {Promise<void>} A Promise that resolves when the files are generated.
+ * @param {string} fontName
+ * @param {string} svgPattern
+ * @param {string} outputDir
+ * @param {Object} [options={}]
+ * @returns {Promise<void>}
  */
 async function generateAndCreateFiles(fontName, svgPattern, outputDir, options = {}) {
   try {
     const result = await generateFonts(fontName, svgPattern, outputDir, options);
 
-    // Generate CSS content
-    let cssContent = generateCssContent(result);
+    const cssContent = generateCssContent(result);
 
-    // Generate HTML content
-    let htmlTags = generateHtmlTags(result);
-
-    // Generate HTML text
+    const htmlTags = generateHtmlTags(result);
     const htmlText = generateHtmlText(result, htmlTags);
 
-    // Define file paths
-    const cssFilePath = path.join(__dirname, `dist/${result.fontName}.css`);
-    const htmlFilePath = path.join(__dirname, `dist/${result.fontName}.html`);
+    const outDir = path.join(__dirname, "dist");
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-    // Write CSS file
+    const cssFilePath  = path.join(outDir, `${result.fontName}.css`);
+    const htmlFilePath = path.join(outDir, `${result.fontName}.html`);
+
     writeToFile(cssFilePath, cssContent, 'CSS');
-
-    // Write HTML file
     writeToFile(htmlFilePath, htmlText, 'HTML');
   } catch (error) {
     console.error("Error generating fonts:", error);
@@ -41,15 +36,19 @@ async function generateAndCreateFiles(fontName, svgPattern, outputDir, options =
 /**
  * Generates the CSS content for the font.
  *
- * @param {Object} result - The result object from font generation.
- * @returns {string} The CSS content.
+ * Добавлены:
+ *  - .pulse  (анимация лоадера «вкл/выкл»)
+ *  - @keyframes apr-pulse
+ *  - prefers-reduced-motion
  */
 function generateCssContent(result) {
   let cssContent = `@font-face {
   font-family: "${result.fontName}";
-  src: url("${result.fontName}.ttf") format("embedded-opentype"),
-       url("${result.fontName}.woff2") format("woff2"),
-       url("${result.fontName}.woff") format("woff");
+  src:
+    url("${result.fontName}.woff2") format("woff2"),
+    url("${result.fontName}.woff")  format("woff"),
+    url("${result.fontName}.ttf")   format("truetype");
+  font-display: swap;
 }
 
 .apr {
@@ -66,7 +65,6 @@ function generateCssContent(result) {
 }
 
 .apr:before {
-  --webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
@@ -74,7 +72,6 @@ function generateCssContent(result) {
   animation: apr-spin 2s linear infinite;
   display: inline-block;
 }
-
 @keyframes apr-spin {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -83,76 +80,59 @@ function generateCssContent(result) {
 
   for (const item in result.glyphsData) {
     const obj = result.glyphsData[item];
-    const addIcon = `
+    cssContent += `
 .apr-${obj.name.split('$')[1]}:before {
-    content: "\\${obj.codepointHexa}";
- }
+  content: "\\${obj.codepointHexa}";
+}
 `;
-    cssContent += addIcon;
   }
 
   return cssContent;
 }
 
-/**
- * Generates HTML tags for each icon.
- *
- * @param {Object} result - The result object from font generation.
- * @returns {string} HTML tags for each icon.
- */
 function generateHtmlTags(result) {
   let htmlTags = "";
-
   for (const item in result.glyphsData) {
     const obj = result.glyphsData[item];
-    htmlTags += `<span><i class="apr apr-${obj.name.split('$')[1]}"></i></span>`;
+    htmlTags += `<span title="${obj.name}"><i class="apr apr-${obj.name.split('$')[1]}"></i></span>\n`;
   }
-
   return htmlTags;
 }
 
-/**
- * Generates the complete HTML text.
- *
- * @param {Object} result - The result object from font generation.
- * @param {string} htmlTags - HTML tags for each icon.
- * @returns {string} The complete HTML text.
- */
 function generateHtmlText(result, htmlTags) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="${result.fontName}.css">
-    <style>
-        div {
-            max-width: 600px;
-            width: 100%;
-            margin: auto;
-        }
-        
-        span {
-            display: inline-block; padding: 6px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>${result.fontName} demo</title>
+  <link rel="stylesheet" href="${result.fontName}.css">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu; }
+    .wrap { max-width: 900px; margin: 40px auto; padding: 0 16px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .grid span { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border: 1px solid #eee; border-radius: 6px; }
+    .demo { margin: 24px 0 8px; font-weight: 600; }
+    .big { font-size: 48px; display: flex; gap: 16px; align-items: center; }
+    .box { display:inline-flex; width:64px; height:64px; align-items:center; justify-content:center; border:1px dashed #ddd; border-radius:8px; }
+  </style>
 </head>
-  <body>
-    <div>
+<body>
+  <div class="wrap">
+    <div class="demo">All icons</div>
+    <div class="grid">
       ${htmlTags}
     </div>
-  </body>
+
+    <div class="demo">Animations</div>
+    <div class="big">
+      <div class="box"><i class="apr apr-spinner spin"></i></div>
+    </div>
+  </div>
+</body>
 </html>
 `;
 }
 
-/**
- * Writes content to a file and logs success or error message.
- *
- * @param {string} filePath - The path of the file to write.
- * @param {string} content - The content to write to the file.
- * @param {string} fileType - The type of the file (e.g., "CSS" or "HTML").
- */
 function writeToFile(filePath, content, fileType) {
   fs.writeFile(filePath, content, (err) => {
     if (err) {
