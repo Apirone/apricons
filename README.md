@@ -11,7 +11,7 @@ This library contains Apirone branded icons.
 ### To install dependence:
 
 ```bash
-npm install apricons
+  npm install apricons
 ```
 
 ### Import
