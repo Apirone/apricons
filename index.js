@@ -44,10 +44,7 @@ async function generateAndCreateFiles(fontName, svgPattern, outputDir, options =
 function generateCssContent(result) {
   let cssContent = `@font-face {
   font-family: "${result.fontName}";
-  src:
-    url("${result.fontName}.woff2") format("woff2"),
-    url("${result.fontName}.woff")  format("woff"),
-    url("${result.fontName}.ttf")   format("truetype");
+  src: url("./${result.fontName}.woff2") format("woff2");
   font-display: swap;
 }
 
