@@ -4,17 +4,25 @@
   "description": "Font Icon Library for Apirone UI Libraries",
   "author": "Apirone",
   "license": "MIT",
-  "keywords": ["Icon"],
+  "keywords": [
+    "Icon"
+  ],
+  "type": "module",
   "main": "dist/apricons.css",
   "exports": {
     "./style.css": "./dist/apricons.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node index.js"
   },
   "devDependencies": {
-    "@momentum-ui/webfonts-generator": "^2.3.2"
+    "glob": "^13.0.6",
+    "svg2ttf": "^6.1.0",
+    "svgicons2svgfont": "^15.0.1",
+    "wawoff2": "^2.0.1"
   },
   "bugs": {
     "url": "https://github.com/Apirone/apirone-icons/issues"

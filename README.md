@@ -2,27 +2,47 @@
 
 ---
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://raw.githubusercontent.com/Apirone/apricons/main/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://raw.githubusercontent.com/Apirone/apirone-icons/main/LICENSE)
 
-This library contains Apirone branded icons.
+This library contains Apirone branded icons as an icon font.
 
 ---
 
-### To install dependence:
+### Requirements
+
+The package is published to **GitHub Packages**, not the public npm registry.
+You need a GitHub personal access token with `read:packages` scope.
+
+Add to your project's `.npmrc`:
+
+```
+@apirone:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+### Install
 
 ```bash
-  npm install apricons
+npm install @apirone/apricons
 ```
 
 ### Import
-```
-import('apricons/dist/apricons.css')
+
+```js
+import '@apirone/apricons/style.css'
 ```
 
-### Example:
+### Example
 
 ```html
 <i class="apr apr-box"></i>
+```
+
+### Build locally
+
+```bash
+yarn install
+yarn build
 ```
 
 ---

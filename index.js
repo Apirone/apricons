@@ -1,45 +1,105 @@
-const {generateFonts} = require("@momentum-ui/webfonts-generator");
-const fs = require("fs");
-const path = require("path");
+import { SVGIcons2SVGFontStream } from 'svgicons2svgfont';
+import { createReadStream, existsSync, mkdirSync, writeFile } from 'node:fs';
+import { writeFile as writeFileAsync } from 'node:fs/promises';
+import { join, basename, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { globSync } from 'glob';
+import svg2ttf from 'svg2ttf';
+import wawoff2 from 'wawoff2';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const CODEPOINT_START = 0xEA01;
 
 /**
- * Asynchronously generates font files, CSS, and HTML based on SVG icons.
+ * Converts a set of SVG icon files into a WOFF2 font + CSS + HTML preview.
  *
  * @param {string} fontName
- * @param {string} svgPattern
- * @param {string} outputDir
- * @param {Object} [options={}]
- * @returns {Promise<void>}
+ * @param {string} svgPattern - glob pattern relative to cwd, e.g. "icons/*.svg"
+ * @param {string} outputDir  - output directory relative to project root
  */
-async function generateAndCreateFiles(fontName, svgPattern, outputDir, options = {}) {
+async function generateAndCreateFiles(fontName, svgPattern, outputDir) {
   try {
-    const result = await generateFonts(fontName, svgPattern, outputDir, options);
+    const outDir = join(__dirname, outputDir);
+    if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
 
+    const files = globSync(svgPattern).sort((a, b) => {
+      return parseInt(basename(a)) - parseInt(basename(b));
+    });
+
+    if (files.length === 0) {
+      console.error(`No SVG files found for pattern: ${svgPattern}`);
+      return;
+    }
+
+    const { svgFont, glyphsData } = await buildSvgFont(fontName, files);
+
+    const ttf = svg2ttf(svgFont).buffer;
+    const woff2 = await wawoff2.compress(Buffer.from(ttf));
+
+    await Promise.all([
+      writeFileAsync(join(outDir, `${fontName}.svg`), svgFont),
+      writeFileAsync(join(outDir, `${fontName}.ttf`), Buffer.from(ttf)),
+      writeFileAsync(join(outDir, `${fontName}.woff2`), woff2),
+    ]);
+
+    const result = { fontName, glyphsData };
     const cssContent = generateCssContent(result);
-
     const htmlTags = generateHtmlTags(result);
     const htmlText = generateHtmlText(result, htmlTags);
 
-    const outDir = path.join(__dirname, "dist");
-    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-
-    const cssFilePath  = path.join(outDir, `${result.fontName}.css`);
-    const htmlFilePath = path.join(outDir, `${result.fontName}.html`);
-
-    writeToFile(cssFilePath, cssContent, 'CSS');
-    writeToFile(htmlFilePath, htmlText, 'HTML');
+    writeToFile(join(outDir, `${fontName}.css`), cssContent, 'CSS');
+    writeToFile(join(outDir, `${fontName}.html`), htmlText, 'HTML');
   } catch (error) {
-    console.error("Error generating fonts:", error);
+    console.error('Error generating fonts:', error);
   }
 }
 
 /**
- * Generates the CSS content for the font.
+ * Builds an SVG font from individual icon files using SVGIcons2SVGFontStream.
+ * Returns the SVG font string and a glyphsData map keyed by icon name.
  *
- * Добавлены:
- *  - .pulse  (анимация лоадера «вкл/выкл»)
- *  - @keyframes apr-pulse
- *  - prefers-reduced-motion
+ * @param {string} fontName
+ * @param {string[]} files - sorted list of SVG file paths
+ * @returns {Promise<{ svgFont: string, glyphsData: Record<string, { name: string, codepointHexa: string }> }>}
+ */
+function buildSvgFont(fontName, files) {
+  return new Promise((resolve, reject) => {
+    let svgFont = '';
+    const glyphsData = {};
+    let codepoint = CODEPOINT_START;
+
+    const stream = new SVGIcons2SVGFontStream({
+      fontName,
+      normalize: true,
+      fontHeight: 1000,
+      log: () => {},
+    });
+
+    stream.on('data', (chunk) => { svgFont += chunk.toString(); });
+    stream.on('end', () => resolve({ svgFont, glyphsData }));
+    stream.on('error', reject);
+
+    for (const file of files) {
+      const name = basename(file, '.svg');
+      const codepointHexa = codepoint.toString(16).toUpperCase();
+
+      glyphsData[name] = { name, codepointHexa };
+
+      const glyph = createReadStream(file);
+      glyph.metadata = { name, unicode: [String.fromCodePoint(codepoint)] };
+      stream.write(glyph);
+
+      codepoint++;
+    }
+
+    stream.end();
+  });
+}
+
+/**
+ * Generates CSS content: @font-face declaration, base class, animations,
+ * and per-icon :before pseudo-element rules.
  */
 function generateCssContent(result) {
   let cssContent = `@font-face {
@@ -138,7 +198,7 @@ function generateCssContent(result) {
 }
 
 function generateHtmlTags(result) {
-  let htmlTags = "";
+  let htmlTags = '';
   for (const item in result.glyphsData) {
     const obj = result.glyphsData[item];
     htmlTags += `<span title="${obj.name}"><i class="apr apr-${obj.name.split('$')[1]}"></i></span>\n`;
@@ -181,7 +241,7 @@ function generateHtmlText(result, htmlTags) {
 }
 
 function writeToFile(filePath, content, fileType) {
-  fs.writeFile(filePath, content, (err) => {
+  writeFile(filePath, content, (err) => {
     if (err) {
       console.error(`Error writing ${fileType} file:`, err);
     } else {
@@ -190,4 +250,4 @@ function writeToFile(filePath, content, fileType) {
   });
 }
 
-generateAndCreateFiles("apricons", "icons/*.svg", "dist");
+generateAndCreateFiles('apricons', 'icons/*.svg', 'dist');

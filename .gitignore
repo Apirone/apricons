@@ -172,3 +172,6 @@ out
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# Generated font build artifacts
+dist/
